@@ -1,0 +1,19 @@
+<div *ngFor="let list of ( lists$ | async )">
+  <app-list-item [list] = "list"></app-list-item>
+</div>
+<div class="add-list">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      + Add List
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <input matInput placeholder="Enter name of list" (keydown.enter)="addList(newList)" #newList>
+    </mat-form-field>
+
+    <mat-action-row>
+      <button mat-raised-button color="primary" (click)="addList(newList)">Add List</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</div>
+

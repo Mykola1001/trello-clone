@@ -1,0 +1,9 @@
+app-lists {
+  overflow-x: scroll;
+  height: 100vh;
+  display: flex;
+  /*flex-direction: column;*/
+  margin-right: 0;
+  transition: margin .1s ease-in;
+  margin-top: 10px;
+}

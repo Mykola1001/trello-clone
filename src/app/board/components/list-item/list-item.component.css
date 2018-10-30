@@ -1,0 +1,77 @@
+.list-wrapper {
+  width: 272px;
+  margin: 0 4px;
+  height: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.list {
+  background-color: #dfe3e6;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  position: relative;
+  white-space: normal;
+}
+
+mat-card-header mat-card-content {
+  font-weight: bold;
+}
+
+mat-card-header mat-card-content:hover {
+  cursor: pointer;
+}
+
+.edit-field {
+  background-color: white;
+}
+
+mat-card-header {
+  width: 80%;
+}
+
+mat-icon {
+  position: absolute;
+  right: 10px;
+}
+
+mat-icon:hover{
+  cursor: pointer;
+}
+
+.task-form {
+  width: 100%;
+}
+
+.task-form mat-form-field {
+  width: 100%;
+  background-color: white;
+  margin-bottom: 5px;
+  border-radius: 3px;
+}
+
+.task-form textarea {
+  margin-left: 10px;
+}
+
+.add-task-btn {
+  width: 60%;
+}
+
+.add-task-title:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.delete-list-icon {
+  color: darkgray;
+}
+mat-list {
+  margin-bottom: 5px;
+}

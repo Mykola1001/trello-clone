@@ -1,0 +1,18 @@
+<div class="list-wrapper">
+  <mat-card class="example-card list">
+
+    <mat-card-header>
+      <mat-card-content *ngIf="!isInlineEdit" (click) = inlineEdit()>{{list['name']}}</mat-card-content>
+      <mat-form-field *ngIf="isInlineEdit" class="example-full-width" class="edit-field">
+        <textarea matInput autofocus #editData value = "{{list['name']}}"
+                  (keydown.enter)="editList(list.id, editData)"
+                  (blur)="editList(list.id, editData)"
+        >
+        </textarea>
+      </mat-form-field>
+      <mat-icon class="delete-list-icon" (click)="openDialog(list)">delete</mat-icon>
+    </mat-card-header>
+
+  </mat-card>
+</div>
+
