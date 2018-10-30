@@ -1,5 +1,5 @@
 <div *ngFor="let list of ( lists$ | async )">
-  <app-list-item [list] = "list"></app-list-item>
+  <app-list-item [list] = "list" [tasks$] = "tasks$"></app-list-item>
 </div>
 <div class="add-list">
   <mat-expansion-panel>
@@ -16,4 +16,5 @@
     </mat-action-row>
   </mat-expansion-panel>
 </div>
+
 

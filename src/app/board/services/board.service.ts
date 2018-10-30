@@ -58,6 +58,16 @@ export class BoardService {
 
   deleteItem(list: List): Observable<boolean> {
     this.lists = JSON.parse(localStorage.getItem('lists'));
+    this.tasks = JSON.parse(localStorage.getItem('tasks'));
+
+    // delete tasks of List
+    for (let j = this.tasks.length - 1; j > -1; j--) {
+      if (list.id === this.tasks[j].listId) {
+        this.tasks.splice(j, 1);
+      }
+    }
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+
     // delete List
     for (let i = 0; i < this.lists.length; i++) {
       if (this.lists[i].id === list.id) {

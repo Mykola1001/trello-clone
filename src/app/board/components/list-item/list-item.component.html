@@ -13,6 +13,10 @@
       <mat-icon class="delete-list-icon" (click)="openDialog(list)">delete</mat-icon>
     </mat-card-header>
 
+    <!--list of tasks-->
+    <mat-list role="list" *ngIf="tasks$">
+    <app-task *ngFor="let task of  (tasks$|async) | tasksFilter:list" [task]="task"></app-task>
+    </mat-list>
     <mat-card-content *ngIf="!isInlineAddTask" class="add-task-title" (click) = inlineAddTask()>
       +Add new task
     </mat-card-content>

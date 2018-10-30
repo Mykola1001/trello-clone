@@ -1,0 +1,33 @@
+mat-list-item {
+  background-color: white;
+  border-radius: 3px;
+  margin-bottom: 5px;
+}
+
+mat-list-item:hover {
+  cursor: pointer;
+  background-color: lightgray;
+}
+
+.task-detail:hover .delete-icon {
+  display: block;
+}
+
+mat-icon {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  display: none;
+  color: darkgray;
+  border-radius: 3px;
+}
+
+mat-icon:hover {
+  color: grey;
+  background-color: darkgray;
+  cursor: pointer;
+}
+
+.task-detail {
+  position: relative;
+}

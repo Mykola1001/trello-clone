@@ -13,3 +13,27 @@
   margin-left: 4px;
 }
 
+.list-wrapper {
+  width: 272px;
+  height: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.list {
+  background-color: #dfe3e6;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  position: relative;
+  white-space: normal;
+}
+
+a {
+  margin-left: 10px;
+}
