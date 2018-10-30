@@ -1,0 +1,13 @@
+<mat-icon (click)="cancelClick()">close</mat-icon>
+<form [formGroup] = "editForm" (submit)="editTask()">
+  <label>Name:</label>
+  <mat-form-field>
+    <input matInput formControlName="name">
+  </mat-form-field>
+
+  <label>Description:</label>
+  <mat-form-field>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="primary">Edit Task</button>
+</form>

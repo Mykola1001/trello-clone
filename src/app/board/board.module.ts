@@ -14,6 +14,7 @@ import { DeleteConfirmDialogComponent } from './components/delete-confirm-dialog
 import { ReactiveFormsModule } from '@angular/forms';
 import { TaskComponent } from './components/task/task.component';
 import { TasksFilterPipe } from './shared/pipes/tasks-filter.pipe';
+import { EditFormDialogComponent } from './components/edit-form-dialog/edit-form-dialog.component';
 
 @NgModule({
   imports: [
@@ -23,9 +24,9 @@ import { TasksFilterPipe } from './shared/pipes/tasks-filter.pipe';
     StoreModule.forFeature('board', reducers),
     EffectsModule.forFeature([ListEffects, TaskEffects]),
   ],
-  entryComponents: [DeleteConfirmDialogComponent],
+  entryComponents: [DeleteConfirmDialogComponent, EditFormDialogComponent],
   declarations: [BoardComponent, ListsComponent, ListItemComponent,
-    DeleteConfirmDialogComponent, TaskComponent, TasksFilterPipe],
+    DeleteConfirmDialogComponent, TaskComponent, TasksFilterPipe, EditFormDialogComponent],
   exports: [BoardComponent],
   providers: [BoardService]
 })
