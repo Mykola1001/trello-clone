@@ -5,7 +5,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { TaskState } from '../../store/reducers/task.reducer';
 import { DeleteConfirmDialogComponent } from '../delete-confirm-dialog/delete-confirm-dialog.component';
 import { DeleteTask } from '../../store/actions/task.action';
-import { EditFormDialogComponent } from '../edit-form-dialog/edit-form-dialog.component';
+import {EditFormDialogComponent} from '../edit-form-dialog/edit-form-dialog.component';
 
 @Component({
   selector: 'app-task',
@@ -37,4 +37,5 @@ export class TaskComponent implements OnInit {
       width: '500px'
     });
   }
+
 }

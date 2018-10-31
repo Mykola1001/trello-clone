@@ -44,6 +44,11 @@ export function reducer(state: TaskState = initialState, action: TaskActions): T
         loading: true
       };
 
+    case fromActions.DRAG_AND_DROP_TASK:
+      return <TaskState>{
+        ...state
+      };
+
     default:
       return state;
   }

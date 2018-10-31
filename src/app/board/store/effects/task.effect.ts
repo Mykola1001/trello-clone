@@ -56,7 +56,26 @@ export class TaskEffects {
         .getAllTasks()
         .pipe(
           map((tasks: Task[]) => {
+
             return new GetAllTasksSuccess(tasks);
+          }),
+          catchError((error: any) => {
+            return of(new Fail(error));
+          })
+        );
+    })
+  );
+
+  @Effect()
+  dragAndDropTaskSameList$: Observable<Action> = this.actions$.pipe(
+    ofType(taskActions.DRAG_AND_DROP_TASK),
+    switchMap((action: taskActions.DragAndDropTask) => {
+
+      return this.boardService
+        .dragAndDropTask(action['payload'])
+        .pipe(
+          map(() => {
+            return new GetAllTasks();
           }),
           catchError((error: any) => {
             return of(new Fail(error));

@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TaskState } from '../../store/reducers/task.reducer';
 import { Store } from '@ngrx/store';
-import { EditTask } from '../../store/actions/task.action';
+import {EditTask} from '../../store/actions/task.action';
 
 @Component({
   selector: 'app-edit-form-dialog',
@@ -18,6 +18,7 @@ export class EditFormDialogComponent implements OnInit {
 
   ngOnInit() {
     this.editForm = this.formBuilder.group({
+      listId: [this.data.listId],
       id: [this.data.id],
       name: [ this.data.name ],
       description: [ this.data.description]

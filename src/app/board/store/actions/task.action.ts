@@ -6,6 +6,7 @@ export const GET_ALL_TASKS = '[TASK] Get All Tasks';
 export const GET_ALL_TASKS_SUCCESS = '[TASK] Get All Tasks Success';
 export const DELETE_TASK = '[TASK] Delete Task';
 export const EDIT_TASK = '[TASK] Edit Task';
+export const DRAG_AND_DROP_TASK = '[TASK] Drag And Drop Task';
 
 export class AddTask implements Action {
   readonly type: string = ADD_TASK;
@@ -31,4 +32,9 @@ export class EditTask implements Action {
   constructor(public payload: Task) {}
 }
 
-export type TaskActions = AddTask | GetAllTasks | GetAllTasksSuccess | DeleteTask | EditTask;
+export class DragAndDropTask implements Action {
+  readonly type: string = DRAG_AND_DROP_TASK;
+  constructor(public payload: { prevIndex: number, nextIndex: number, prevListId: string, nextListId: string }) {}
+}
+
+export type TaskActions = AddTask | GetAllTasks | GetAllTasksSuccess | DeleteTask | EditTask | DragAndDropTask;

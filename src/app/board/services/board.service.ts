@@ -15,6 +15,7 @@ export class BoardService {
     this.lists = JSON.parse(localStorage.getItem('lists')) || [];
     // add generated ID
     list.id = this.idGenerator();
+    list.tasks = [];
     this.lists.push(list);
     localStorage.setItem('lists', JSON.stringify(this.lists));
 
@@ -22,11 +23,15 @@ export class BoardService {
   }
 
   addTask(task: Task): Observable<boolean> {
-    this.tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    this.lists = JSON.parse(localStorage.getItem('lists')) || [];
     // add generated ID
     task.id = this.idGenerator();
-    this.tasks.push(task);
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    for (let i = 0; i < this.lists.length; i++) {
+      if (this.lists[i].id === task.listId) {
+        this.lists[i].tasks.push(task);
+        localStorage.setItem('lists', JSON.stringify(this.lists));
+      }
+    }
 
     return of(true);
   }
@@ -44,30 +49,26 @@ export class BoardService {
   }
 
   editTask(task: Task): Observable<boolean> {
-    this.tasks = JSON.parse(localStorage.getItem('tasks'));
-    for (let i = 0; i < this.tasks.length; i++) {
-      if (this.tasks[i].id === task.id) {
-        this.tasks[i].name = task.name;
-        this.tasks[i].description = task.description;
-        localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    this.lists = JSON.parse(localStorage.getItem('lists'));
+    for (let i = 0; i < this.lists.length; i++) {
+      if (this.lists[i].id === task.listId) {
+        this.tasks = [...this.lists[i].tasks];
+        for (let j = 0; j < this.tasks.length; j ++) {
+          if (this.tasks[j].id === task.id) {
+            this.tasks[j].name = task.name;
+            this.tasks[j].description = task.description;
+          }
+        }
+        this.lists[i].tasks = [...this.tasks];
       }
     }
+    localStorage.setItem('lists', JSON.stringify(this.lists));
 
     return of(true);
   }
 
   deleteItem(list: List): Observable<boolean> {
     this.lists = JSON.parse(localStorage.getItem('lists'));
-    this.tasks = JSON.parse(localStorage.getItem('tasks'));
-
-    // delete tasks of List
-    for (let j = this.tasks.length - 1; j > -1; j--) {
-      if (list.id === this.tasks[j].listId) {
-        this.tasks.splice(j, 1);
-      }
-    }
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
-
     // delete List
     for (let i = 0; i < this.lists.length; i++) {
       if (this.lists[i].id === list.id) {
@@ -80,11 +81,61 @@ export class BoardService {
   }
 
   deleteTask(task: Task): Observable<boolean> {
-    this.tasks = JSON.parse(localStorage.getItem('tasks'));
-    for (let i = 0; i < this.tasks.length; i++) {
-      if (this.tasks[i].id === task.id) {
-        this.tasks.splice(i, 1);
-        localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    this.lists = JSON.parse(localStorage.getItem('lists'));
+    for (let i = 0; i < this.lists.length; i++) {
+      if (this.lists[i].id === task.listId) {
+        this.tasks = [...this.lists[i].tasks];
+        for (let j = 0; j < this.tasks.length; j ++) {
+          if (this.tasks[j].id === task.id) {
+            this.tasks.splice(j, 1);
+          }
+        }
+        this.lists[i].tasks = [...this.tasks];
+      }
+    }
+    localStorage.setItem('lists', JSON.stringify(this.lists));
+
+    return of(true);
+  }
+
+  // drag and drop task
+  dragAndDropTask(data: any): Observable<boolean> {
+    this.lists = JSON.parse(localStorage.getItem('lists'));
+    // drag and drop task to the same list
+    if (data['prevListId'] === data['nextListId']) {
+      for (let i = 0; i < this.lists.length; i++) {
+        if (this.lists[i].id === data['prevListId']) {
+          // add to temp array all tasks from list
+          this.tasks = this.lists[i].tasks;
+          const draggableTask = this.tasks[data['prevIndex']];
+          // move task at new position
+          this.tasks.splice(data['prevIndex'], 1);
+          this.tasks.splice(data['nextIndex'], 0, draggableTask);
+          this.lists[i].tasks = this.tasks;
+        }
+      }
+      localStorage.setItem('lists', JSON.stringify(this.lists));
+    } else { // drag and drop task to other list
+      // delete task from previous list
+      let draggableTask;
+      for (let i = 0; i < this.lists.length; i++) {
+        if (this.lists[i].id === data['prevListId']) {
+          this.tasks = this.lists[i].tasks;
+          draggableTask = this.tasks[data['prevIndex']];
+          this.tasks.splice(data['prevIndex'], 1);
+          this.lists[i].tasks = this.tasks;
+          localStorage.setItem('lists', JSON.stringify(this.lists));
+        }
+      }
+      // add task at new position in other List
+      for (let i = 0; i < this.lists.length; i++) {
+        if (this.lists[i].id === data['nextListId']) {
+          this.tasks = this.lists[i].tasks;
+          draggableTask.listId = data['nextListId'];
+          this.tasks.splice(data['nextIndex'], 0, draggableTask);
+          this.lists[i].tasks = this.tasks;
+          localStorage.setItem('lists', JSON.stringify(this.lists));
+        }
       }
     }
 
@@ -96,7 +147,18 @@ export class BoardService {
   }
 
   getAllTasks(): Observable<any> {
-    return of(JSON.parse(localStorage.getItem('tasks')));
+    this.tasks = [];
+    this.lists = JSON.parse(localStorage.getItem('lists'));
+    if (!this.lists) {
+      this.lists = [];
+    }
+    for (let i = 0; i < this.lists.length; i++) {
+      for (let j = 0; j < this.lists[i].tasks.length; j++) {
+        this.tasks.push(this.lists[i].tasks[j]);
+      }
+    }
+
+    return of (this.tasks);
   }
 
   idGenerator(): string {
