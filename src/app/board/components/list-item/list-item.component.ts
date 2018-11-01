@@ -23,10 +23,12 @@ export class ListItemComponent implements OnInit {
   isInlineAddTask = false;
   editListData;
   taskData;
+  ids;
   deleteConfirmDialogRef: MatDialogRef<DeleteConfirmDialogComponent>;
   constructor(private store: Store<ListState>, public dialog: MatDialog, private service: BoardService) { }
 
   ngOnInit() {
+    this.ids = this.service.listIds;
   }
 
   inlineEdit() {

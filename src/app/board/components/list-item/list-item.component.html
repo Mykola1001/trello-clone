@@ -16,7 +16,7 @@
     <!--list of tasks-->
     <!--Workaround: add ids to cdkDropListConnectedTo-->
     <mat-list id = "{{list.id}}" cdkDropList [cdkDropListData]="list" role="list"
-              [cdkDropListConnectedTo]="this.service.listIds" (cdkDropListDropped)="drop($event)">
+              [cdkDropListConnectedTo]="ids" (cdkDropListDropped)="drop($event)">
       <div *ngFor="let task of  (tasks$|async) | tasksFilter:list"  [cdkDragData]="task" cdkDrag class="drag-task">
         <app-task [task]="task"></app-task>
       </div>
