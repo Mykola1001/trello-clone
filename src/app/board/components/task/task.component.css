@@ -2,6 +2,7 @@ mat-list-item {
   background-color: white;
   border-radius: 3px;
   margin-bottom: 5px;
+  overflow-y: hidden;
 }
 
 mat-list-item:hover {

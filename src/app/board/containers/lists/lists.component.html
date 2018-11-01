@@ -1,48 +1,6 @@
-<div *ngFor="let list of ( lists$ | async ); let i = index" >
-  <div class="list-wrapper">
-    <mat-card class="example-card list">
-
-      <!--list header-->
-      <mat-card-header>
-        <mat-card-content *ngIf="(!isInlineEdit || (listIndex !== i))" (click) = inlineEdit(i)>{{list['name']}}</mat-card-content>
-        <mat-form-field *ngIf="(isInlineEdit && listIndex === i)" class="example-full-width" class="edit-field">
-        <textarea matInput autofocus #editData value = "{{list['name']}}"
-                  (keydown.enter)="editList(list.id, editData)"
-                  (blur)="editList(list.id, editData)"
-        >
-        </textarea>
-        </mat-form-field>
-        <mat-icon class="delete-list-icon" (click)="openDialog(list)">delete</mat-icon>
-      </mat-card-header>
-
-      <!--list of tasks-->
-      <!--Workaround: add ids to cdkDropListConnectedTo so for now we can use up to 7 lists for dropping-->
-      <mat-list id = "{{i}}" cdkDropList [cdkDropListData]="list" role="list"
-                [cdkDropListConnectedTo]="['0', '1', '2', '3', '4', '5', '6']" (cdkDropListDropped)="drop($event)">
-        <div *ngFor="let task of  (tasks$|async) | tasksFilter:list"  [cdkDragData]="task" cdkDrag class="drag-task">
-          <app-task [task]="task"></app-task>
-        </div>
-      </mat-list>
-
-      <!--Add task link field-->
-      <mat-card-content *ngIf="!isInlineAddTask || (listIndex !== i)" class="add-task-title" (click) = inlineAddTask(i)>
-        +Add new task
-      </mat-card-content>
-
-      <!--Add task field-->
-      <div class="task-form" *ngIf="isInlineAddTask && listIndex === i" >
-        <mat-form-field >
-          <textarea matInput placeholder = "Enter short name of task" #taskName></textarea>
-        </mat-form-field>
-        <button mat-raised-button color="primary" class="add-task-btn" (click) ="addTask(list.id, taskName)">Add Task</button>
-        <button mat-button (click) = "inlineAddTask(i)">X</button>
-      </div>
-    </mat-card>
-  </div>
-
+<div *ngFor="let list of ( lists$ | async )">
+  <app-list-item [list] = "list" [tasks$] = "tasks$"></app-list-item>
 </div>
-
-<!--Add List form-->
 <div class="add-list">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -58,4 +16,5 @@
     </mat-action-row>
   </mat-expansion-panel>
 </div>
+
 

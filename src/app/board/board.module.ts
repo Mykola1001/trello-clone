@@ -9,11 +9,12 @@ import { ListEffects, TaskEffects } from './store/effects/index';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { ListsComponent } from './containers/lists/lists.component';
+import { ListItemComponent } from './components/list-item/list-item.component';
 import { DeleteConfirmDialogComponent } from './components/delete-confirm-dialog/delete-confirm-dialog.component';
-import { TasksFilterPipe } from './shared/pipes/tasks-filter.pipe';
-import { TaskComponent } from './components/task/task.component';
-import { EditFormDialogComponent } from './components/edit-form-dialog/edit-form-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TaskComponent } from './components/task/task.component';
+import { TasksFilterPipe } from './shared/pipes/tasks-filter.pipe';
+import { EditFormDialogComponent } from './components/edit-form-dialog/edit-form-dialog.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
@@ -26,9 +27,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     DragDropModule
   ],
   entryComponents: [DeleteConfirmDialogComponent, EditFormDialogComponent],
-  declarations: [BoardComponent, ListsComponent, DeleteConfirmDialogComponent,
-    TasksFilterPipe, TaskComponent, EditFormDialogComponent],
-  exports: [BoardComponent, DragDropModule],
+  declarations: [BoardComponent, ListsComponent, ListItemComponent,
+    DeleteConfirmDialogComponent, TaskComponent, TasksFilterPipe, EditFormDialogComponent],
+  exports: [BoardComponent],
   providers: [BoardService]
 })
 

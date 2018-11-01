@@ -9,6 +9,7 @@ import { Task } from '../models/task';
 export class BoardService {
   lists: List[];
   tasks: Task[];
+  listIds: Array<string>;
   constructor() { }
 
   addList(list: List): Observable<boolean> {
@@ -143,6 +144,16 @@ export class BoardService {
   }
 
   getAllLists(): Observable<any> {
+    // add ids to array for cdkDropListConnectedTo property
+    this.listIds = [];
+    this.lists = JSON.parse(localStorage.getItem('lists'));
+    if (!this.lists) {
+      this.lists = [];
+    }
+    for (let i = 0; i < this.lists.length; i++) {
+      this.listIds.push('' + this.lists[i].id);
+    }
+
     return of(JSON.parse(localStorage.getItem('lists')));
   }
 

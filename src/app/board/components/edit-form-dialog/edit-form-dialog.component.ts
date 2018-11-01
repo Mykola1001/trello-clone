@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TaskState } from '../../store/reducers/task.reducer';
 import { Store } from '@ngrx/store';
-import {EditTask} from '../../store/actions/task.action';
+import { EditTask } from '../../store/actions/task.action';
 
 @Component({
   selector: 'app-edit-form-dialog',
